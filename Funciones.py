@@ -19,7 +19,7 @@ import os
 # Input: **Developer.parquet**
 
 def Developer(desarrolladora: str):
-    df = pd.read_parquet('Datasets\\archivos_API\\Developer.parquet')
+    df = pd.read_parquet('Datasets/archivos_API/Developer.parquet')
     # Filtrar el DataFrame por la desarrolladora específica
     df_desarrolladora = df[df['developer'] == desarrolladora.lower()]
 
