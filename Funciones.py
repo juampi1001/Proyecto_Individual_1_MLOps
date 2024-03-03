@@ -23,7 +23,7 @@ def Developer(desarrolladora: str):
     # Filtrar el DataFrame por la desarrolladora específica
     df_desarrolladora = df[df['developer'] == desarrolladora.lower()]
 
-    if df_desarrolladora.empty:
+    if df_desarrolladora.empty():
         return print(f"No se encontró la desarrolladora '{desarrolladora}' en el DataFrame.")
     
     # Eliminar filas con valores nulos en la columna 'release_year'
