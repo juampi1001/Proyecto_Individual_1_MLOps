@@ -9,7 +9,6 @@ from Funciones import Developer
 
 app = FastAPI()
 
-
 @app.get("/")
 async def root():
     """
