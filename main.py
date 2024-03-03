@@ -36,7 +36,7 @@ async def endpoint1(desarrolladora: str):
     """
     try:
         # Validación adicional para asegurarse de que desarrolladora no sea nulo o esté vacío
-        if not genero or not genero.strip():
+        if not desarrolladora or not desarrolladora.strip():
             raise HTTPException(status_code=422, detail="El parámetro 'desarrolladora' no puede ser nulo o estar vacío.")
 
         result = Developer(desarrolladora)
