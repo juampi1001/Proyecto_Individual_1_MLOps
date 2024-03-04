@@ -25,7 +25,7 @@ def Developer(desarrolladora: str):
     df_desarrolladora = df[df['developer'] == desarrolladora.lower()]
 
     if df_desarrolladora.empty:
-        resultados = "No se encontró la desarrolladora '{desarrolladora}' en el DataFrame."
+        resultados = f"No se encontró la desarrolsladora '{desarrolladora}' en el DataFrame."
         return resultados
     
     # Eliminar filas con valores nulos en la columna 'release_year'
@@ -47,4 +47,4 @@ def Developer(desarrolladora: str):
         'Contenido Free': porcentaje_free_por_anio
     })
     
-    return resultados
+    return print(resultados)
