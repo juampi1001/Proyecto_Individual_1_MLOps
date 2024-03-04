@@ -19,24 +19,26 @@ import os
 # Input: **Developer.parquet**
 
 def Developer(desarrolladora: str):
+    
     df = pd.read_parquet('Datasets/archivos_API/Developer.parquet')
     # Filtrar el DataFrame por la desarrolladora específica
     df_desarrolladora = df[df['developer'] == desarrolladora.lower()]
 
-    if df_desarrolladora.empty():
-        return print(f"No se encontró la desarrolladora '{desarrolladora}' en el DataFrame.")
+    if df_desarrolladora.empty:
+        resultados = "No se encontró la desarrolladora '{desarrolladora}' en el DataFrame."
+        return resultados
     
     # Eliminar filas con valores nulos en la columna 'release_year'
-    df_desarrolladora = df_desarrolladora.dropna(subset=['Año'])
+    df_desarrolladora = df_desarrolladora.dropna(subset=['release_year'])
     
     # Contar la cantidad de ítems por año
-    cantidad_items_por_anio = df_desarrolladora.groupby('Año').size()
+    cantidad_items_por_anio = df_desarrolladora.groupby('release_year').size()
     
     # Filtrar juegos gratuitos
     df_free = df_desarrolladora[df_desarrolladora['price'] == 0]
     
     # Calcular el porcentaje de contenido gratuito por año
-    porcentaje_free_por_anio = df_free.groupby('Año').size() / cantidad_items_por_anio * 100
+    porcentaje_free_por_anio = df_free.groupby('release_year').size() / cantidad_items_por_anio * 100
     porcentaje_free_por_anio = porcentaje_free_por_anio.fillna(0).astype(int).astype(str) + "%"
     
     # Unir los resultados en un DataFrame
