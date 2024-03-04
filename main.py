@@ -39,13 +39,13 @@ async def endpoint1(desarrolladora: str):
         if not desarrolladora:
             raise HTTPException(status_code=422, detail="El parámetro 'desarrolladora' no puede ser nulo o estar vacío.")
 
-        result = print(Developer(desarrolladora))
+        result = Developer(desarrolladora)
 
             # Validación para verificar si la desarrolladora existe en los datos
         if not result:
             raise HTTPException(status_code=404, detail=f"No se encontró información para la desarrolladora '{desarrolladora}'.")
 
-        return result
+        return print(result)
     
     except FileNotFoundError as e:
         raise HTTPException(status_code=500, detail=f"Error al cargar el archivo developer.parquet: {str(e)}")
