@@ -41,7 +41,7 @@ async def endpoint1(desarrolladora: str):
 
         result = Developer(desarrolladora)
 
-            # Validación para verificar si el género existe en los datos
+            # Validación para verificar si la desarrolladora existe en los datos
         if not result:
             raise HTTPException(status_code=404, detail=f"No se encontró información para la desarrolladora '{desarrolladora}'.")
 

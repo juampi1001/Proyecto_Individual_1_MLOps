@@ -47,4 +47,4 @@ def Developer(desarrolladora: str):
         'Contenido Free': porcentaje_free_por_anio
     })
     
-    return print(resultados)
+    return resultados
