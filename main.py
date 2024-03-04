@@ -39,7 +39,7 @@ async def endpoint1(desarrolladora: str):
         if not desarrolladora:
             raise HTTPException(status_code=422, detail="El parámetro 'desarrolladora' no puede ser nulo o estar vacío.")
 
-        result = Developer(desarrolladora)
+        result = print(Developer(desarrolladora))
 
             # Validación para verificar si la desarrolladora existe en los datos
         if not result:
