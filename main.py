@@ -45,7 +45,7 @@ async def endpoint1(desarrolladora: str):
         if not result:
             raise HTTPException(status_code=404, detail=f"No se encontró información para la desarrolladora '{desarrolladora}'.")
 
-        return print(result)
+        return result
     
     except FileNotFoundError as e:
         raise HTTPException(status_code=500, detail=f"Error al cargar el archivo developer.parquet: {str(e)}")
