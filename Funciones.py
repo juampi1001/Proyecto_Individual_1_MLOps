@@ -25,8 +25,8 @@ def Developer(desarrolladora: str):
     df_desarrolladora = df[df['developer'] == desarrolladora.lower()]
 
     if df_desarrolladora.empty:
-        resultados = f"No se encontró la desarrolsladora '{desarrolladora}' en el DataFrame."
-        return resultados
+        # Devuelve un DataFrame vacío
+        return pd.DataFrame()
     
     # Eliminar filas con valores nulos en la columna 'release_year'
     df_desarrolladora = df_desarrolladora.dropna(subset=['release_year'])
