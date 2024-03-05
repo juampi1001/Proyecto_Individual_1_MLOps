@@ -23,10 +23,6 @@ def Developer(desarrolladora: str):
     df = pd.read_parquet('Datasets/archivos_API/Developer.parquet')
     # Filtrar el DataFrame por la desarrolladora específica
     df_desarrolladora = df[df['developer'] == desarrolladora.lower()]
-
-    if df_desarrolladora.empty:
-        # Devuelve un DataFrame vacío
-        return pd.DataFrame()
     
     # Eliminar filas con valores nulos en la columna 'release_year'
     df_desarrolladora = df_desarrolladora.dropna(subset=['release_year'])
@@ -50,9 +46,11 @@ def Developer(desarrolladora: str):
     return resultados
 
 
-    # ### Endpoint 1
+    # ### Endpoint 2
 
-# def developer( desarrollador : str ): Cantidad de items y porcentaje de contenido Free por año 
+# def UserForGenre( genre : str ): usuario que acumula más horas jugadas para un género dado 
+# y una lista de la acumulación de horas jugadas por año.
+ 
 # según empresa desarrolladora
 # Input: **UserForGenre.parquet**
 def UserForGenre(genero:str):
