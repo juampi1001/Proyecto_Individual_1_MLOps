@@ -48,3 +48,33 @@ def Developer(desarrolladora: str):
     })
     
     return resultados
+
+
+    # ### Endpoint 1
+
+# def developer( desarrollador : str ): Cantidad de items y porcentaje de contenido Free por año 
+# según empresa desarrolladora
+# Input: **UserForGenre.parquet**
+def UserForGenre(genero:str):
+    consulta2 = pd.read_parquet('Datasets/archivos_API/UserForGenre.parquet')
+    
+    # Filtrar el DataFrame por el género dado
+    genre_data = consulta2[consulta2['genres'] == genero.lower()]
+
+    # Encontrar al usuario con más horas jugadas para ese género
+    top_user = genre_data.loc[genre_data['hours_game'].idxmax()]['user_id']
+
+    # Crear una lista de acumulación de horas jugadas por año
+    hours_by_year = genre_data.groupby('release_year')['hours_game'].sum().reset_index()
+  
+    hours_by_year = hours_by_year.rename(columns={'release_year': 'Año', 'hours_game': 'Horas'})
+    
+    hours_list = hours_by_year.to_dict(orient='records')
+
+    # Crear el diccionario de retorno
+    result = {
+        "Usuario con más horas jugadas para Género {}".format(genero): top_user,
+        "Horas jugadas": hours_list
+    }
+
+    return result
