@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 import traceback  
 from typing import List, Dict
 import pandas as pd
-from Funciones import Developer,userdata,UserForGenre,developer_reviews_analysis,recomendacion
+from Funciones import Developer,userdata,UserForGenre,best_developer_year,developer_reviews_analysis,recomendacion
 
 app = FastAPI()
 
@@ -133,6 +133,24 @@ async def endpoint3(genero: str):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")
 
+# endpoint4 best_developer_year
+@app.get("/best_developer_year/{year}", tags=['best_developer_year'])
+async def endpoint4(year: str):
+    """
+    Descripción: Segun el año, devuelve top 3 de desarrolladores con juegos MÁS recomendados por usuarios para el año dado. 
+    (reviews.recommend = True y comentarios positivos)
+    Parámetros:
+        - year (str): año para el cual se busca las 3 mejores desarrolladoras.ejemplo: 2015
+    """
+    try:
+        result = best_developer_year(year)
+        return result
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=500, detail=f"Error al cargar el archivo best_developer_year.parquet: {str(e)}")
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")
+
 # endpoint5 developer_reviews_analysis
 @app.get("/developer_reviews_analysis/{desarrolladora}", tags=['developer_reviews_analysis'])
 async def endpoint5(desarrolladora: str):
@@ -140,7 +158,7 @@ async def endpoint5(desarrolladora: str):
     Descripción: Según la empresa desarrolladora, se devuelve un diccionario con el nombre de la desarrolladora como llave y una lista con la cantidad total de registros de reseñas de usuarios que se encuentren categorizados con un análisis de sentimiento como valor.
     
     Parámetros:
-        - empresa_desarrolladora (str): Nombre de la empresa desarrolladora para la cual se realiza el análisis de sentimiento. Debe ser un string, ejemplo: Valve
+        - desarrolladora (str): Nombre de la empresa desarrolladora para la cual se realiza el análisis de sentimiento. Debe ser un string, ejemplo: Valve
     
     Ejemplo de retorno: {'Valve' : [Negative = 182, Neutral = 120, Positive = 278]}
     """

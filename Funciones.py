@@ -80,7 +80,7 @@ def userdata(user_id: str):
 
     return result
 
-    # ### Endpoint 3
+# ### Endpoint 3
 
 # def UserForGenre( genre : str ): usuario que acumula más horas jugadas para un género dado 
 # y una lista de la acumulación de horas jugadas por año.
@@ -110,11 +110,31 @@ def UserForGenre(genero:str):
 
     return result
 
+# ### Endpoint 4
+
+# def best_developer_year( year : str ): top 3 de desarrolladores con 
+# juegos MÁS recomendados por usuarios para el año dado. (reviews.recommend = True y comentarios positivos)
+
+# Input: **best_developer_year.parquet**
+def best_developer_year(anio):
+    df = pd.read_parquet('Datasets/archivos_API/best_developer_year.paquet')
+
+    # Filtrar el DataFrame por el año dado
+    df_year = df[df['year'] == int(anio)] 
+    
+    # Contar la frecuencia de aparición de las desarrolladoras
+    desarrolladora = df_year['developer'].value_counts()  
+    
+    # Obtener las tres dessarolladoras mas comunes
+    podio = desarrolladora.head(3)
+    
+    return podio
+
 # ### Endpoint 5
 
 #def developer_reviews_analysis( desarrolladora : str ): Según el desarrollador, se devuelve un diccionario con el nombre del desarrollador como 
 # llave y una lista con la cantidad total de registros de reseñas de usuarios que se encuentren categorizados con un análisis 
-# de sentimiento como valor positivo o negativo.
+# de sentimiento como valor positivo, neutro o negativo.
 def developer_reviews_analysis(desarrolladora: str):
     df = pd.read_parquet('Datasets/archivos_API/developer_reviews_analysis.parquet')
 
