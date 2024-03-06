@@ -110,6 +110,22 @@ def UserForGenre(genero:str):
 
     return result
 
+# ### Endpoint 5
+
+#def developer_reviews_analysis( desarrolladora : str ): Según el desarrollador, se devuelve un diccionario con el nombre del desarrollador como 
+# llave y una lista con la cantidad total de registros de reseñas de usuarios que se encuentren categorizados con un análisis 
+# de sentimiento como valor positivo o negativo.
+def developer_reviews_analysis(desarrolladora: str):
+    df = pd.read_parquet('Datasets/archivos_API/developer_reviews_analysis.parquet')
+
+    # Filtrar por la empresa desarrolladora
+    developer = df[df['developer'] == desarrolladora.lower()]
+
+    # Convertir a formato de diccionario
+    response_data = developer.set_index('developer').to_dict(orient='index')
+    
+    return response_data
+
 # sistema de recomendacion item-item
 def recomendacion(item_id: str):
     df = pd.read_parquet('Datasets/archivos_ML/recomienda_item_item.parquet')

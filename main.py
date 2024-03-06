@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 import traceback  
 from typing import List, Dict
 import pandas as pd
-from Funciones import Developer,userdata,UserForGenre,recomendacion
+from Funciones import Developer,userdata,UserForGenre,developer_reviews_analysis,recomendacion
 
 app = FastAPI()
 
@@ -31,7 +31,7 @@ async def item(item_id: str):
     Parámetros:
         - item_id (str): Id del producto para el cual se busca la recomendación. Debe ser un número, ejemplo: 761140
         
-    Ejemplo de retorno: "['弹炸人2222', 'Uncanny Islands', 'Beach Rules', 'Planetarium 2 - Zen Odyssey', 'The Warrior Of Treasures']"
+    Ejemplo de retorno: ["Surgeon Simulator","Urja",Pixel Puzzles 2: Anime",World of Cinema - Directors Cut",Train Valley"]
     '''
 
     resultado = recomendacion(item_id)
@@ -132,4 +132,25 @@ async def endpoint3(genero: str):
     except Exception as e:
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")
+
+# endpoint5 developer_reviews_analysis
+@app.get("/developer_reviews_analysis/{desarrolladora}", tags=['developer_reviews_analysis'])
+async def endpoint5(desarrolladora: str):
+    """
+    Descripción: Según la empresa desarrolladora, se devuelve un diccionario con el nombre de la desarrolladora como llave y una lista con la cantidad total de registros de reseñas de usuarios que se encuentren categorizados con un análisis de sentimiento como valor.
+    
+    Parámetros:
+        - empresa_desarrolladora (str): Nombre de la empresa desarrolladora para la cual se realiza el análisis de sentimiento. Debe ser un string, ejemplo: Valve
+    
+    Ejemplo de retorno: {'Valve' : [Negative = 182, Neutral = 120, Positive = 278]}
+    """
+    try:
+        result = developer_reviews_analysis(desarrolladora)
+        return result
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=500, detail=f"Error al cargar el archivo developer_reviews_analysis.parquet: {str(e)}")
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")
+
 
