@@ -109,3 +109,20 @@ def UserForGenre(genero:str):
     }
 
     return result
+
+# sistema de recomendacion item-item
+def recomendacion(item_id: str):
+    df = pd.read_parquet('Datasets/archivos_ML/recomienda_item_item.parquet')
+    #castear el item_id para que coincida con el dtype del datafame
+    item_id = int(item_id)
+    
+    # Verificar la existencia del item_id en el DataFrame
+    if item_id not in df['item_id'].values:
+        return f"No se encontraron recomendaciones para el item_id '{item_id}'."
+    
+    # Filtrar el DataFrame por el item_id especificado
+    result_df = df[df['item_id'] == item_id]
+
+    result = result_df['RecomendacionesTop5'].explode()
+    
+    return result

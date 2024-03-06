@@ -5,14 +5,14 @@ from fastapi.responses import JSONResponse
 import traceback  
 from typing import List, Dict
 import pandas as pd
-from Funciones import Developer,userdata,UserForGenre
+from Funciones import Developer,userdata,UserForGenre,recomendacion
 
 app = FastAPI()
 
 @app.get("/")
 async def root():
     """
-    Proyecto FastAPI - Sistema de Recomendaciones
+    "Proyecto Individual N° 1 - Juan Pablo Vitalevi"
 
     Versión: 1.0.0
 
@@ -21,8 +21,37 @@ async def root():
     """
     return {"Mensaje": "Proyecto Individual N° 1 - Juan Pablo Vitalevi"}
 
-# endpoint 1 - developer
 
+
+@app.get("/recomendacion/{item_id}", tags=['recomendacion'])
+async def recomendacion(item_id: str):
+    '''
+    Descripcion: Retorna 5 juegos similares recomendados
+
+    Parametros: 
+            - item_id (str): Es el id de aquel juego del que daremos recomendaciones de juegos similares
+    '''
+    try:
+        # Validación adicional para asegurarse de que item_id no sea nulo o esté vacío
+        if not item_id:
+            raise HTTPException(status_code=422, detail="El parámetro 'item_id' no puede ser nulo o estar vacío.")
+
+        result = recomendacion(item_id)
+            
+        # Validación para verificar si la item_id existe en los datos
+        if result.empty:
+            raise HTTPException(status_code=404, detail=f"No se encontró información para el item con id'{item_id}'.")
+            
+        return result
+
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=500, detail=f"Error al cargar el archivo recomienda_item_item.parquet: {str(e)}")
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")
+
+
+# endpoint 1 - developer
 @app.get("/Developer/{desarrolladora}", tags=['Developer'])
 async def endpoint1(desarrolladora: str):
     """
@@ -31,7 +60,7 @@ async def endpoint1(desarrolladora: str):
     
     Parámetros:
         - desarrolladora (str): desarrolladora para la cual se 
-        - busca la cantidad de items y porcentaje free por anio. Debe ser un string, ejemplo: valve
+          busca la cantidad de items y porcentaje free por anio. Debe ser un string, ejemplo: valve
     
     """
     try:
@@ -40,8 +69,7 @@ async def endpoint1(desarrolladora: str):
             raise HTTPException(status_code=422, detail="El parámetro 'desarrolladora' no puede ser nulo o estar vacío.")
 
         result = Developer(desarrolladora)
-        print("Resultado de Developer():", result)
-            
+                    
         # Validación para verificar si la desarrolladora existe en los datos
         if result.empty:
             raise HTTPException(status_code=404, detail=f"No se encontró información para la desarrolladora '{desarrolladora}'.")
