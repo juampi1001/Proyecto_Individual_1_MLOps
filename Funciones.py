@@ -117,7 +117,7 @@ def UserForGenre(genero:str):
 
 # Input: **best_developer_year.parquet**
 def best_developer_year(anio):
-    df = pd.read_parquet('Datasets/archivos_API/best_developer_year.paquet')
+    df = pd.read_parquet('Datasets/archivos_API/best_developer_year.parquet')
 
     # Filtrar el DataFrame por el año dado
     df_year = df[df['year'] == int(anio)] 
