@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 import traceback  
 from typing import List, Dict
 import pandas as pd
-from Funciones import Developer, UserForGenre
+from Funciones import Developer,userdata,UserForGenre
 
 app = FastAPI()
 
@@ -57,9 +57,40 @@ async def endpoint1(desarrolladora: str):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")
 
-# endpoint2 UserForGenre
+# endpoint 2 - userdata
+@app.get("/userdata/{user_id}", tags=['userdata'])
+async def endpoint2(user_id: str):
+    '''
+    Descripción: Retorna cantidad de dinero gastado por el usuario, el porcentaje de 
+    recomendación en base a reviews.recommend y cantidad de items
+
+    Parámetros:
+        - userid (str): usuario para el cual se busca el la cantidad de dinero gastado, porcentaje de recomendaciones y cantidad de items
+        . Debe ser un string, ejemplo: doctr
+    '''
+    try:
+        # Validación adicional para asegurarse de que el user_id no sea nulo o esté vacío
+        if not user_id or not user_id.strip():
+            raise HTTPException(status_code=422, detail="El parámetro 'user_id' no puede ser nulo o estar vacío.")
+
+        result = userdata(user_id)
+        
+        # Validación para verificar si el user_id existe en los datos
+        if result.empty:
+            raise HTTPException(status_code=404, detail=f"No se encontró información para el usuario '{user_id}'.")
+            
+        return result
+    
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=500, detail=f"Error al cargar el archivo userdata.parquet: {str(e)}")
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")
+
+
+# endpoint3 UserForGenre
 @app.get("/UserForGenre/{genero}", tags=['UserForGenre'])
-async def endpoint2(genero: str):
+async def endpoint3(genero: str):
     """
     Descripción: Retorna el usuario que acumula más horas jugadas para un género dado y una lista de la acumulación de horas jugadas por año.
 
@@ -82,7 +113,7 @@ async def endpoint2(genero: str):
         return result
     
     except FileNotFoundError as e:
-        raise HTTPException(status_code=500, detail=f"Error al cargar el archivo UserForGenre.csv: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error al cargar el archivo UserForGenre.parquet: {str(e)}")
     except Exception as e:
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")
