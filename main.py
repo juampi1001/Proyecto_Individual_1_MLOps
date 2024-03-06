@@ -39,7 +39,7 @@ async def recomendacion(item_id: str):
         result = recomendacion(item_id)
             
         # Validación para verificar si la item_id existe en los datos
-        if result.empty:
+        if not result:
             raise HTTPException(status_code=404, detail=f"No se encontró información para el item con id'{item_id}'.")
             
         return result
@@ -69,7 +69,7 @@ async def endpoint1(desarrolladora: str):
             raise HTTPException(status_code=422, detail="El parámetro 'desarrolladora' no puede ser nulo o estar vacío.")
 
         result = Developer(desarrolladora)
-                    
+
         # Validación para verificar si la desarrolladora existe en los datos
         if result.empty:
             raise HTTPException(status_code=404, detail=f"No se encontró información para la desarrolladora '{desarrolladora}'.")
