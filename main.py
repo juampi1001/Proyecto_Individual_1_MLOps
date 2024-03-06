@@ -26,30 +26,17 @@ async def root():
 @app.get("/recomendacion/{item_id}", tags=['recomendacion'])
 async def recomendacion(item_id: str):
     '''
-    Descripcion: Retorna 5 juegos similares recomendados
-
-    Parametros: 
-            - item_id (str): Es el id de aquel juego del que daremos recomendaciones de juegos similares
+    Descripción: Ingresando el id de producto, devuelve una lista con 5 juegos recomendados similares al ingresado.
+    
+    Parámetros:
+        - item_id (str): Id del producto para el cual se busca la recomendación. Debe ser un número, ejemplo: 761140
+        
+    Ejemplo de retorno: "['弹炸人2222', 'Uncanny Islands', 'Beach Rules', 'Planetarium 2 - Zen Odyssey', 'The Warrior Of Treasures']"
     '''
-    try:
-        # Validación adicional para asegurarse de que item_id no sea nulo o esté vacío
-        if not item_id:
-            raise HTTPException(status_code=422, detail="El parámetro 'item_id' no puede ser nulo o estar vacío.")
 
-        result = recomendacion(item_id)
-            
-        # Validación para verificar si la item_id existe en los datos
-        if not result:
-            raise HTTPException(status_code=404, detail=f"No se encontró información para el item con id'{item_id}'.")
-            
-        return result
-
-    except FileNotFoundError as e:
-        raise HTTPException(status_code=500, detail=f"Error al cargar el archivo recomienda_item_item.parquet: {str(e)}")
-    except Exception as e:
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Error interno del servidor: {str(e)}")
-
+    resultado = recomendacion(item_id)
+    return resultado
+    
 
 # endpoint 1 - developer
 @app.get("/Developer/{desarrolladora}", tags=['Developer'])
