@@ -76,7 +76,7 @@ async def endpoint2(user_id: str):
         result = userdata(user_id)
         
         # Validación para verificar si el user_id existe en los datos
-        if result.empty:
+        if not result:
             raise HTTPException(status_code=404, detail=f"No se encontró información para el usuario '{user_id}'.")
             
         return result
