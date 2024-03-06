@@ -24,7 +24,7 @@ async def root():
 
 
 @app.get("/recomendacion/{item_id}", tags=['recomendacion'])
-async def recomendacion(item_id: str):
+async def item(item_id: str):
     '''
     Descripción: Ingresando el id de producto, devuelve una lista con 5 juegos recomendados similares al ingresado.
     
