@@ -85,7 +85,7 @@ Desarrollo de funciones y API's:
 
 
 # Pasos realizados para el proyecto
-ETL (Extract, Transform, Load) y EDA (Exploratory Data Analysis)
+* ETL (Extract, Transform, Load) y EDA (Exploratory Data Analysis)
 En esta fase del proyecto, se llevaron a cabo las siguientes actividades:
 
 Extracción de Datos (Extract): Se Extrageron los datos que nos proporcionaron en Formato JSON. Son 3 bases con informacion de los juegos de Steam, Reviews y datos de usuarios.
@@ -96,21 +96,21 @@ Carga de Datos (Load): Los datos transformados fueron cargados en el entorno de 
 
 Análisis Exploratorio de Datos (EDA): Se llevó a cabo un análisis exploratorio para comprender mejor la naturaleza de los datos. Esto incluyó la visualización de patrones, la identificación de tendencias y la detección de posibles relaciones entre variables clave.
 
-Machine Learning:
+* Machine Learning:
 En la fase de Machine Learning, se realizaron los siguientes pasos:
 
 Selección de Modelos: Se selecciono el modelo de machine learning de relacion item-item, y se analizaron las bases propuestas para generear una solucion específica.
 
 Entrenamiento del Modelo: Los modelos seleccionados fueron entrenados utilizando los datos previamente procesados durante la fase ETL. Se llevaron a cabo ajustes y optimizaciones para mejorar el rendimiento del modelo.
 
-Deployment y API:
+* Deployment y API:
 Montaje de la API (Local): Se implementó un entorno virtual para permitir la interacción con el modelo de machine learning y las consultas antes pedidas.
 
 Despliegue en Render (Deploy-Render): Se procedió al despliegue de la API en un entorno de producción utilizando las plataformas Render y github en la nube. Esto permitió que la funcionalidad estuviera disponible de manera accesible para usuarios finales.
 
 Monitoreo y Mantenimiento: Se probaron tanto el modelo como los endpoints para chequear su rendimiento y velocidad de respuesta en tiempo real de la API desplegada.
 
-Video
+# Video
 Dejo el video proporcionando una explicacion basica del proyecto, y el funcionamiento de los endpoints
 
 Link : 
