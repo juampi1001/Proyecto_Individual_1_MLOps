@@ -123,6 +123,7 @@ def recomendacion(item_id: str):
     # Filtrar el DataFrame por el item_id especificado
     result_df = df[df['item_id'] == item_id]
 
-    result = result_df['RecomendacionesTop5'].explode()
+    recomendaciones = list(result_df['RecomendacionesTop5'].iloc[0])
+
     
-    return result
+    return recomendaciones
