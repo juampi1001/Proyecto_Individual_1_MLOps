@@ -41,9 +41,9 @@ async def endpoint1(desarrolladora: str):
 
         result = Developer(desarrolladora)
         print("Resultado de Developer():", result)
-
-            # Validación para verificar si la desarrolladora existe en los datos
-        if not result:
+            
+        # Validación para verificar si la desarrolladora existe en los datos
+        if result.empty:
             raise HTTPException(status_code=404, detail=f"No se encontró información para la desarrolladora '{desarrolladora}'.")
             
         # Convierte el DataFrame a una lista de diccionarios
