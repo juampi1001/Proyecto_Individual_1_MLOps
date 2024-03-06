@@ -126,7 +126,7 @@ def best_developer_year(anio):
     desarrolladora = df_year['developer'].value_counts()  
     
     # Obtener las tres dessarolladoras mas comunes
-    podio = desarrolladora.head(3)
+    podio = desarrolladora.head(3).reset_index().to_dict('records')
     
     return podio
 
