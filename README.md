@@ -114,3 +114,8 @@ Monitoreo y Mantenimiento: Se probaron tanto el modelo como los endpoints para c
 Dejo el video proporcionando una explicacion basica del proyecto, y el funcionamiento de los endpoints
 
 Link : 
+
+# Endpoints
+Dejare tambien el enlace para poder probar los endpoints.
+
+Enlace: https://proyecto-individual-1-mlops-hf9y.onrender.com/docs#/
