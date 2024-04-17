@@ -113,7 +113,7 @@ Monitoreo y Mantenimiento: Se probaron tanto el modelo como los endpoints para c
 # Video
 Dejo el video proporcionando una explicacion basica del proyecto, y el funcionamiento de los endpoints
 
-Link : 
+Link : https://www.youtube.com/watch?v=cax3eWrzTGw
 
 # Endpoints
 Dejare tambien el enlace para poder probar los endpoints.
